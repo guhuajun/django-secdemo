@@ -1,0 +1,50 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row row-spacer">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="content-container">
+            <div id="content-container-center">
+              <h3>{{option_a}} vs {{option_b}}!</h3>
+              <form id="choice" name='form' method="POST" action="/">
+                {% csrf_token %}
+                <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
+                <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
+              </form>
+              <div id="tip">
+                (Tip: you can change your vote)
+              </div>
+              <div id="hostname">
+                Processed by container ID {{hostname}}
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{% if vote %}
+<script>
+  var vote = "{{vote}}";
+
+  if(vote == "a"){
+    $(".a").prop('disabled', true);
+    $(".a").html('{{option_a}} <i class="fa fa-check-circle"></i>');
+    $(".b").css('opacity','0.5');
+  }
+  if(vote == "b"){
+    $(".b").prop('disabled', true);
+    $(".b").html('{{option_b}} <i class="fa fa-check-circle"></i>');
+    $(".a").css('opacity','0.5');
+  }
+</script>
+{% endif %}
+<script src="{% static 'frontend/scripts/index.js' %}"></script>
+{% endblock %}

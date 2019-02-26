@@ -1,0 +1,12 @@
+version: "3"
+
+services: 
+  app:
+    image: greggu/django-secdemo:0.1
+    container_name: app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8000:8000
+
